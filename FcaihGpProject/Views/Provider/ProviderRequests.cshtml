@@ -1,0 +1,17 @@
+﻿@model List<Request>
+
+  
+    @foreach(var request in Model)
+    {
+
+       <div>
+           @request.CreatedOn 
+           @request.Name 
+           @request.Description 
+           @request.DaysOfWork
+           @request.Client.Email
+           @request.Client.PhoneNumber
+           @request.Client.Name
+
+            </div>
+    }

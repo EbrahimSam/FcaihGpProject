@@ -1,13 +1,15 @@
-﻿@model List<Provider>
+﻿@model List<Category>
 @{
-    ViewData["Title"] = "ClientHome";
+    ViewData["Title"] = "Client Home";
 }
 
-<h1>ClientHome</h1>
 
-<div class="providers">
-    
+@foreach(var Category in Model)
+{
+<div>
 
-  xcdfdsd
-  
+  @Category.Name
+ <img src="data:image/png;base64, @Category.Image" />
+
 </div>
+}
