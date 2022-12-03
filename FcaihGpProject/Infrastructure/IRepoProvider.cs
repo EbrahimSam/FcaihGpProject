@@ -10,7 +10,7 @@ namespace FcaihGpProject.Infrastructure
         Response Create(Provider provider);
         Response Update(Provider provider);
         Response Delete(Guid Id);
-        List<Provider> GetAllWithCondition(Expression<Func<Provider, bool>> Filter)); 
+        List<Provider> GetAllWithCondition(Expression<Func<Provider, bool>> Filter); 
 
     }
 }

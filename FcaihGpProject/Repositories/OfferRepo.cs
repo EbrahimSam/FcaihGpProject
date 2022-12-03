@@ -1,9 +1,10 @@
 ﻿using FcaihGpProject.Data;
+using FcaihGpProject.Infrastructure;
 using FcaihGpProject.Models;
 
 namespace FcaihGpProject.Repositories
 {
-    public class OfferRepo
+    public class OfferRepo : IRepoOffer 
     {
         private readonly ApplicationDbContext DB;
 
@@ -20,7 +21,6 @@ namespace FcaihGpProject.Repositories
                 return new Response() { success = false, Message = e.Message };
             }
         }
-
         public Response Delete(Guid Id)
         {
 
@@ -41,25 +41,23 @@ namespace FcaihGpProject.Repositories
             return new Response() { success = false, Message = "Offer is not Found" };
 
         }
-
         public Offer Get(Guid Id)
         {
             Offer Offer = DB.Offers.Where(p => p.Id == Id).SingleOrDefault();
             return Offer;
         }
-
         public List<Offer> GetAll()
         {
             var Offers = DB.Offers.ToList();
             return Offers;
         }
-
         public Response Update(Offer Offer)
         {
             Offer OldOffer = DB.Offers.Where(p => p.Id == Offer.Id).SingleOrDefault();
             //TODO: Link Offer to Identity Users First -- Do not Use Identity 
             return new Response();
         }
+
         public List<Offer> GetByRequest(Guid RequestId)
         {
             return DB.Offers.Where(offer => offer.RequestId == RequestId).ToList();
@@ -68,4 +66,4 @@ namespace FcaihGpProject.Repositories
 
     }
 }
-}
+

@@ -1,4 +1,5 @@
-﻿using FcaihGpProject.Infrastructure;
+﻿using FcaihGpProject.Data;
+using FcaihGpProject.Infrastructure;
 using FcaihGpProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,20 @@ namespace FcaihGpProject.Controllers
         private readonly IRepoProvider repoProvider;
         private readonly IRepoOffer repoOffer;
         private readonly IRepoRequest repoRequest;
+        private readonly ApplicationDbContext DB;
+
         public ClientController(IRepoProvider repoProvider, IRepoRequest repoRequest ,IRepoOffer repoOffer)
         {
             this.repoProvider = repoProvider;
             this.repoRequest = repoRequest;
             this.repoOffer = repoOffer; 
         }
+
+        public IActionResult ClientHome()
+        {
+            return View(); 
+        }
+        
         public IActionResult GetProviders()
         {
             var Providers = repoProvider.GetAll();
@@ -32,6 +41,8 @@ namespace FcaihGpProject.Controllers
         {
             if (ModelState.IsValid)
             {
+
+           
                 var response = repoRequest.Create(request);
                 if (response.success)
                     return RedirectToAction("GetRequest",new {id = response.Id});
@@ -87,9 +98,8 @@ namespace FcaihGpProject.Controllers
         }
         public IActionResult GetAllProviderOnCity(string city)
         {
-            return Json(repoProvider.GetAllWithCondition(p=>p.City==city)) // as Example
+            return Json(repoProvider.GetAllWithCondition(p => p.City == city)); // as Example
         }
-
         public IActionResult Index()
         {
             return View();
